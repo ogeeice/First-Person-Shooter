@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scene/Enemy/enemy.gd" type="Script" id=2]
+
+[sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_unshaded = true
+albedo_color = Color( 1, 0.0862745, 0.0862745, 1 )
+
+[sub_resource type="SphereShape" id=2]
+
+[sub_resource type="SphereShape" id=3]
+radius = 30.0
+
+[node name="Enemy" type="KinematicBody"]
+script = ExtResource( 2 )
+
+[node name="body" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 2 )
+
+[node name="detect" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="detect"]
+shape = SubResource( 3 )
+[connection signal="body_entered" from="detect" to="." method="_on_detect_body_entered"]
+[connection signal="body_exited" from="detect" to="." method="_on_detect_body_exited"]
